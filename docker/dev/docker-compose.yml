@@ -1,0 +1,61 @@
+version: "2.0"
+services:
+  # nginx服务
+  nginx:
+    image: nginx:1.23.0-alpine
+    container_name: ${PROJECT_NAME}-nginx-${DEV_USER}-${DEV_PORT}
+    command:
+      - sh
+      - -c
+      - |
+        # 配置时区
+        apk add --no-cache tzdata
+        echo "Asia/Shanghai" >> /etc/timezone
+        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        nginx -c /etc/nginx/nginx.conf
+    volumes:
+      # 挂载配置文件
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      # 挂载静态文件
+    # 链接到golang容器
+    links:
+      - golang:golang_proxy
+    # 端口绑定，将宿主机端口绑定到容器端口
+    ports:
+      - "${DEV_PORT}:80"
+  # go服务
+  golang:
+    # 基础镜像
+    image: cosmtrek/air:v1.40.2
+    # 容器名称
+    container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${DEV_PORT}
+    # 工作目录
+    working_dir: /go/src/web
+    # 文件系统挂载
+    volumes:
+      # 项目主文件
+      - ../../web/:/go/src/web
+    # 运行命令行
+    command:
+      - sh
+      - -c
+      - |
+        # 配置时区
+        apk add --no-cache tzdata
+        echo "Asia/Shanghai" >> /etc/timezone
+        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        # 启动配置
+        /go/bin/air
+    expose:
+      - "8080"
+    extra_hosts:
+      # 将对自身服务的请求重定向到本地
+      - "spreadsheet.com:127.0.0.1"
+    networks:
+      - default
+networks:
+  default:
+    external:
+      # 默认使用以开发者名称命名的docker network
+      # 如果本地默认没有创建，可以: docker network create xxx，其中xxx对应DEV_USER
+      name: ${DEV_USER}
