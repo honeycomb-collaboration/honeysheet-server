@@ -1,2 +1,8 @@
 # docker
 docker/dev/.env
+
+# tmp
+web/tmp
+cmd/tmp
+
+.idea/*

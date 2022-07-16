@@ -30,11 +30,11 @@ services:
     # 容器名称
     container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${DEV_PORT}
     # 工作目录
-    working_dir: /go/src/web
+    working_dir: /go/src/cmd
     # 文件系统挂载
     volumes:
       # 项目主文件
-      - ../../web/:/go/src/web
+      - ../../cmd/:/go/src/cmd
     # 运行命令行
     command:
       - sh
