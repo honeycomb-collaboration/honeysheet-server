@@ -6,4 +6,6 @@ tmp
 web/tmp
 cmd/tmp
 
-.idea/*
+.idea/
+.vscode/
+.DS_Store
