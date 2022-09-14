@@ -2,6 +2,7 @@
 docker/dev/.env
 
 # tmp
+tmp
 web/tmp
 cmd/tmp
 

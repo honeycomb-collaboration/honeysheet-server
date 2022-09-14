@@ -1,28 +1,28 @@
 version: "2.0"
 services:
   # nginx服务
-  nginx:
-    image: nginx:1.23.0-alpine
-    container_name: ${PROJECT_NAME}-nginx-${DEV_USER}-${DEV_PORT}
-    command:
-      - sh
-      - -c
-      - |
-        # 配置时区
-        apk add --no-cache tzdata
-        echo "Asia/Shanghai" >> /etc/timezone
-        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-        nginx -c /etc/nginx/nginx.conf
-    volumes:
-      # 挂载配置文件
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      # 挂载静态文件
-    # 链接到golang容器
-    links:
-      - golang:golang_proxy
-    # 端口绑定，将宿主机端口绑定到容器端口
-    ports:
-      - "${DEV_PORT}:80"
+  #  nginx:
+  #    image: nginx:1.23.0-alpine
+  #    container_name: ${PROJECT_NAME}-nginx-${DEV_USER}-${DEV_PORT}
+  #    command:
+  #      - sh
+  #      - -c
+  #      - |
+  #        # 配置时区
+  #        apk add --no-cache tzdata
+  #        echo "Asia/Shanghai" >> /etc/timezone
+  #        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  #        nginx -c /etc/nginx/nginx.conf
+  #    volumes:
+  #      # 挂载配置文件
+  #      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #      # 挂载静态文件
+  #    # 链接到golang容器
+  #    links:
+  #      - golang:golang_proxy
+  #    # 端口绑定，将宿主机端口绑定到容器端口
+  #    ports:
+  #      - "${DEV_PORT}:80"
   # go服务
   golang:
     # 基础镜像
@@ -30,24 +30,23 @@ services:
     # 容器名称
     container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${DEV_PORT}
     # 工作目录
-    working_dir: /go/src/cmd
+    working_dir: /go/src
     # 文件系统挂载
     volumes:
       # 项目主文件
-      - ../../cmd/:/go/src/cmd
+      - ../..:/go/src
     # 运行命令行
     command:
       - sh
       - -c
       - |
-        # 配置时区
         apk add --no-cache tzdata
         echo "Asia/Shanghai" >> /etc/timezone
         cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-        # 启动配置
-        /go/bin/air
-    expose:
-      - "8080"
+        air -c .air.toml
+    # 端口绑定，将宿主机端口绑定到容器端口
+    ports:
+      - "80:${DEV_PORT}"
     extra_hosts:
       # 将对自身服务的请求重定向到本地
       - "spreadsheet.com:127.0.0.1"

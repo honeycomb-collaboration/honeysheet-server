@@ -12,7 +12,7 @@ func init() {
 
 func Run() {
 	// todo 从配置文件读端口号
-	port := "9898"
+	port := ":9898"
 
 	r := route.RegisterRoute()
 	err := r.Run(port)
