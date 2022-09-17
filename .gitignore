@@ -9,3 +9,4 @@ cmd/tmp
 .idea/
 .vscode/
 .DS_Store
+vendor/

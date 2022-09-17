@@ -8,4 +8,4 @@ DEV_NAME = $(PROJECT_NAME)-$(DEV_USER)
 
 # 启动后端服务开发环境
 dev:
-	cd docker/dev && docker-compose -p "$(DEV_NAME)" down && docker-compose -p "$(DEV_NAME)" up --force-recreate
+	go mod vendor && cd docker/dev && docker-compose -p "$(DEV_NAME)" down && docker-compose -p "$(DEV_NAME)" up --force-recreate
