@@ -54,7 +54,6 @@ services:
       - default
 networks:
   default:
-    external:
-      # 默认使用以开发者名称命名的docker network
-      # 如果本地默认没有创建，可以: docker network create xxx，其中xxx对应DEV_USER
-      name: ${DEV_USER}
+    # 默认使用以开发者名称命名的docker network
+    # 如果本地默认没有创建，可以: docker network create xxx，其中xxx对应DEV_USER
+    name: ${DEV_USER}
