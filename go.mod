@@ -3,7 +3,7 @@ module spreadsheet-server
 go 1.18
 
 require (
-	github.com/OnlineCollaboration/connection v0.0.3
+	github.com/OnlineCollaboration/connection v0.0.4
 	github.com/gin-gonic/gin v1.8.1
 )
 
