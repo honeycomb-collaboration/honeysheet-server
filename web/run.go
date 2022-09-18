@@ -2,17 +2,25 @@ package web
 
 import (
 	"fmt"
+	"spreadsheet-server/configs"
 	"spreadsheet-server/web/route"
 )
 
 func init() {
 	fmt.Println("System init start!")
+	// 初始化配置信息
+	configs.Initialize()
 	// todo 一些初始化工作，读配置文件，链接数据库
 }
 
 func Run() {
-	// todo 从配置文件读端口号
-	port := ":9898"
+	port := configs.AppConfig.Port
+
+	if len(port) == 0 {
+		port = ":80"
+	} else {
+		port = ":" + port
+	}
 
 	r := route.RegisterRoute()
 	err := r.Run(port)

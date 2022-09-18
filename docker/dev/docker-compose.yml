@@ -3,7 +3,7 @@ services:
   # nginx服务
   #  nginx:
   #    image: nginx:1.23.0-alpine
-  #    container_name: ${PROJECT_NAME}-nginx-${DEV_USER}-${DEV_PORT}
+  #    container_name: ${PROJECT_NAME}-nginx-${DEV_USER}-${APP_PORT}
   #    command:
   #      - sh
   #      - -c
@@ -22,13 +22,15 @@ services:
   #      - golang:golang_proxy
   #    # 端口绑定，将宿主机端口绑定到容器端口
   #    ports:
-  #      - "${DEV_PORT}:80"
+  #      - "${APP_PORT}:80"
   # go服务
   golang:
+    env_file:
+      - .env
     # 基础镜像
     image: cosmtrek/air:v1.40.2
     # 容器名称
-    container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${DEV_PORT}
+    container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${APP_PORT}
     # 工作目录
     working_dir: /go/src
     # 文件系统挂载
@@ -46,7 +48,7 @@ services:
         air -c .air.toml
     # 端口绑定，将宿主机端口绑定到容器端口
     ports:
-      - "80:${DEV_PORT}"
+      - "80:${APP_PORT}"
     extra_hosts:
       # 将对自身服务的请求重定向到本地
       - "spreadsheet.com:127.0.0.1"

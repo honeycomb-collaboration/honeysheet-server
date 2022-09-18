@@ -1,0 +1,6 @@
+[db.mongodb]
+    Type = "mongodb"
+    User = "admin"
+    Password = "admin"
+    Host = "47.104.17.105:27017"
+    Database = "admin"
