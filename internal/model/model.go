@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"log"
 	"time"
 
 	"spreadsheet-server/configs"
@@ -28,7 +29,7 @@ func ConnectDB() {
 	timeOut := 2
 	maxNum := 50
 
-	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s/%s?w=majority", user, password, host, port, dbName)
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d/%s?w=majority", user, password, host, port, dbName)
 	// 设置连接超时时间
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeOut))
 	defer cancel()
@@ -40,11 +41,13 @@ func ConnectDB() {
 	client, err := mongo.Connect(ctx, o)
 	if err != nil {
 		fmt.Println("ConnectToDB", err)
+		log.Fatal(err)
 		return
 	}
 	// 判断服务是不是可用
 	if err = client.Ping(context.Background(), readpref.Primary()); err != nil {
 		fmt.Println("ConnectToDB", err)
+		log.Fatal(err)
 		return
 	}
 	// 返回 client

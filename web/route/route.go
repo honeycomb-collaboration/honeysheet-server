@@ -7,14 +7,23 @@ import (
 
 func RegisterRoute() *gin.Engine {
 	r := gin.Default()
-	gv1 := r.Group("v1")
+	gv1 := r.Group("v1/spreadsheets")
 	gv1.Use()
 
-	gv1.GET("/load", func(c *gin.Context) {
+	// get one spreadsheet's all data
+	gv1.GET("/get/:spreadsheetId", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "ok",
 		})
 	})
+
+	// create one spreadsheet
+	gv1.POST("/create", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "ok",
+		})
+	})
+
 	gv1.GET("/healthy", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "ok",
