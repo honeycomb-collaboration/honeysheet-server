@@ -1,18 +1,31 @@
 package spreadsheet
 
 import (
-	"spreadsheet-server/internal/service/sheet"
+	"context"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"spreadsheet-server/internal/model"
 )
 
 type SpreadSheet struct {
-	ID      string
-	Name    string
-	Sheets  sheet.Sheet
-	Configs interface{}
+	*model.SpreadSheet
 }
 
-func (*SpreadSheet) Get(ID string) (SpreadSheet, error) {
-	ss := SpreadSheet{}
-	// todo query spreadsheet
-	return ss, nil
+var SpreadSheetCollection = "SpreadSheet"
+
+func (ss *SpreadSheet) GetByID(ID string) error {
+	findOptions := options.FindOne()
+	findOptions.SetMaxTime(500)
+	objID, err := primitive.ObjectIDFromHex(ID)
+	if err != nil {
+		return err
+	}
+
+	err = model.MongoDBClient.Collection(SpreadSheetCollection).
+		FindOne(context.TODO(), bson.M{"_id": objID, "IsDeleted": bson.M{"$ne": true}}, findOptions).
+		Decode(ss)
+
+	return err
+
 }

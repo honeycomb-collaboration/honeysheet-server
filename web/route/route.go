@@ -2,6 +2,7 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
+	"spreadsheet-server/web/controller"
 	"spreadsheet-server/web/websocket"
 )
 
@@ -12,9 +13,12 @@ func RegisterRoute() *gin.Engine {
 
 	// get one spreadsheet's all data
 	gv1.GET("/get/:spreadsheetId", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "ok",
-		})
+		err := controller.QuerySpreadSheet(c)
+		defer func() {
+			if err != nil {
+				panic(err)
+			}
+		}()
 	})
 
 	// create one spreadsheet
