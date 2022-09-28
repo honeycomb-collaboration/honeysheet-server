@@ -4,10 +4,9 @@ go 1.18
 
 require (
 	github.com/BurntSushi/toml v1.2.0
-	github.com/OnlineCollaboration/connection v0.0.4
+	github.com/OnlineCollaboration/connection v0.0.7
 	github.com/gin-gonic/gin v1.8.1
 	go.mongodb.org/mongo-driver v1.10.2
-	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )
 
 require (

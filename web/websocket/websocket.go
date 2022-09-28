@@ -14,11 +14,12 @@ func Run(responseWriter http.ResponseWriter, request *http.Request) {
 		fmt.Println("websocket handle error", err)
 		return
 	}
+
 	for {
 		msg := <-conn.IncomingMessage
 		fmt.Printf("websocket message %s\n", string((*msg)[:]))
-		//sendMsg := []byte("hello, client")
-		//conn.OutgoingMessage <- &sendMsg
+		sendMsg := []byte("hello, client")
+		conn.OutgoingMessage <- &sendMsg
 	}
 	// todo 1. 在 web/websocket/filter-handler 中采用责任链模式对长链接对请求内容做校验。
 	// todo 2. 采用策略模式分发请求参数,在 web/websocket/message 中实现消息大类型的区分。
