@@ -2,18 +2,17 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"honeysheet-server/internal/service/spreadsheet"
 	"net/http"
-	"spreadsheet-server/internal/service/spreadsheet"
 )
 
-func QuerySpreadSheet(c *gin.Context) error {
+func QuerySpreadSheet(c *gin.Context) {
 	ID := c.Param("spreadsheetId")
 	ss := spreadsheet.SpreadSheet{}
 	err := ss.GetByID(ID)
 	if err != nil {
-		return err
+		_ = c.AbortWithError(http.StatusInternalServerError, err)
 	}
 
 	c.JSON(http.StatusOK, ss)
-	return nil
 }

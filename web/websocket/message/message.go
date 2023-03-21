@@ -1,7 +1,7 @@
 package message
 
 import (
-	"spreadsheet-server/web/websocket"
+	"honeysheet-server/web/websocket"
 )
 
 // TypeStrategy Execute different strategies according to different message Type

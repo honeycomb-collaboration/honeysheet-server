@@ -2,9 +2,9 @@ package web
 
 import (
 	"fmt"
-	"spreadsheet-server/configs"
-	"spreadsheet-server/internal/model"
-	"spreadsheet-server/web/route"
+	"honeysheet-server/configs"
+	"honeysheet-server/internal/model"
+	"honeysheet-server/web/route"
 )
 
 func init() {

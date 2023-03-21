@@ -1,4 +1,4 @@
-# spreadsheet-server
+# honeysheet-server
 Server of online spreadsheet.
 
 # 部署本地开发环境

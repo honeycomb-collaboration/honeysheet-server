@@ -1,7 +1,7 @@
 package main
 
 import (
-	"spreadsheet-server/web"
+	"honeysheet-server/web"
 )
 
 func main() {
