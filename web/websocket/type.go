@@ -1,15 +1,15 @@
 package websocket
 
-type MessageType string // basic spreadsheet command
+type MessageType string // basic workbook command
 
 const (
-	OpenMessage      MessageType = "OPEN_MESSAGE"      // open one spreadsheet
+	OpenMessage      MessageType = "OPEN_MESSAGE"      // open one workbook
 	CloseMessage     MessageType = "CLOSE_MESSAGE"     // close one
 	OperationMessage MessageType = "OPERATION_MESSAGE" // other operation
 	CursorMessage    MessageType = "CURSOR_MESSAGE"    // cursor operation
 )
 
-type OperationType string // Some spreadsheet operations that will change spreadsheet data.
+type OperationType string // Some workbook operations that will change workbook data.
 
 const (
 	AddField      OperationType = "AddField"      // add columns
@@ -23,7 +23,7 @@ const (
 )
 
 type Action struct {
-	TID  string      // spreadsheet ID
+	TID  string      // workbook ID
 	CID  string      // column ID
 	RID  string      // row ID
 	data interface{} // operation special data

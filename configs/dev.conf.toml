@@ -1,6 +1,6 @@
 [db.mongodb]
     Type = "mongodb"
-    User = "spreadsheet"
+    User = "honeysheet_server"
     Password = "yytu123877"
     Host = "47.104.17.105"
     Port = 27017

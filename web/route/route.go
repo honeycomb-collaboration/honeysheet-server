@@ -10,27 +10,27 @@ func RegisterRoute() *gin.Engine {
 	r := gin.Default()
 	group := r.Group("api/v1")
 
-	// get a spreadsheet
-	group.GET("/spreadsheet/:spreadsheetId", controller.QuerySpreadSheet)
-	// get a spreadsheet's sheets
-	group.GET("/spreadsheet/:spreadsheetId/sheet", controller.QuerySpreadSheet)
+	// get a workbook
+	group.GET("/workbook/:workbookId", controller.GetWorkbook)
+	// get a workbook's sheets
+	group.GET("/workbook/:workbookId/sheet", controller.GetWorkbook)
 	// get a sheet
-	group.GET("/sheet/:sheetId", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId", controller.GetWorkbook)
 	// get a sheet's columns
-	group.GET("/sheet/:sheetId/column", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/column", controller.GetWorkbook)
 	// get a sheet's specific column
-	group.GET("/sheet/:sheetId/column/:columnId", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/column/:columnId", controller.GetWorkbook)
 	// get a sheet's rows
-	group.GET("/sheet/:sheetId/row", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/row", controller.GetWorkbook)
 	// get a sheet's specific row
-	group.GET("/sheet/:sheetId/row/:rowId", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/row/:rowId", controller.GetWorkbook)
 	// get a sheet's cells
-	group.GET("/sheet/:sheetId/cell", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/cell", controller.GetWorkbook)
 	// get a sheet's specific cell
-	group.GET("/sheet/:sheetId/cell/:cellId", controller.QuerySpreadSheet)
+	group.GET("/sheet/:sheetId/cell/:cellId", controller.GetWorkbook)
 
-	// create one spreadsheet
-	group.POST("/spreadsheet", func(c *gin.Context) {
+	// create one workbook
+	group.POST("/workbook", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "ok",
 		})

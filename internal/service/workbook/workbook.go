@@ -1,4 +1,4 @@
-package spreadsheet
+package workbook
 
 import (
 	"context"
@@ -8,13 +8,13 @@ import (
 	"honeysheet-server/internal/model"
 )
 
-type SpreadSheet struct {
-	*model.SpreadSheet
+type Workbook struct {
+	*model.Workbook
 }
 
-var SpreadSheetCollection = "SpreadSheet"
+const WorkbookCollection = "Workbook"
 
-func (ss *SpreadSheet) GetByID(ID string) error {
+func (workbook *Workbook) GetByID(ID string) error {
 	findOptions := options.FindOne()
 	findOptions.SetMaxTime(500)
 	objID, err := primitive.ObjectIDFromHex(ID)
@@ -22,9 +22,9 @@ func (ss *SpreadSheet) GetByID(ID string) error {
 		return err
 	}
 
-	err = model.MongoDBClient.Collection(SpreadSheetCollection).
+	err = model.MongoDBClient.Collection(WorkbookCollection).
 		FindOne(context.TODO(), bson.M{"_id": objID, "IsDeleted": bson.M{"$ne": true}}, findOptions).
-		Decode(ss)
+		Decode(workbook)
 
 	return err
 

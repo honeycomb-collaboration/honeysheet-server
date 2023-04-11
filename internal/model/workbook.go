@@ -1,6 +1,6 @@
 package model
 
-type SpreadSheet struct {
+type Workbook struct {
 	ID         string `bson:"_id,omitempty"`
 	Name       string `form:"name" bson:",omitempty" json:",omitempty"`
 	CreateTime string `form:"create_time" bson:",omitempty" json:",omitempty"`
