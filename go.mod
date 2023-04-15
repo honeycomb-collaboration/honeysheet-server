@@ -5,8 +5,9 @@ go 1.20
 require (
 	github.com/BurntSushi/toml v1.2.1
 	github.com/OnlineCollaboration/connection v0.0.8
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
-	go.mongodb.org/mongo-driver v1.11.3
+	go.mongodb.org/mongo-driver v1.11.4
 )
 
 require (
