@@ -18,19 +18,19 @@ func RegisterRoute() *gin.Engine {
 	// get a workbook's sheets
 	group.GET("/workbook/:workbookId/sheet", controller.GetWorkbookSheets)
 	// get a sheet
-	group.GET("/sheet/:sheetId", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId", controller.GetSheet)
 	// get a sheet's columns
-	group.GET("/sheet/:sheetId/column", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/column", controller.TODO)
 	// get a sheet's specific column
-	group.GET("/sheet/:sheetId/column/:columnId", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/column/:columnId", controller.TODO)
 	// get a sheet's rows
-	group.GET("/sheet/:sheetId/row", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/row", controller.TODO)
 	// get a sheet's specific row
-	group.GET("/sheet/:sheetId/row/:rowId", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/row/:rowId", controller.TODO)
 	// get a sheet's cells
-	group.GET("/sheet/:sheetId/cell", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/cell", controller.GetSheetCells)
 	// get a sheet's specific cell
-	group.GET("/sheet/:sheetId/cell/:cellId", controller.GetWorkbook)
+	group.GET("/sheet/:sheetId/cell/:cellId", controller.GetCell)
 	// create one workbook
 	group.POST("/workbook", func(c *gin.Context) {
 		c.JSON(200, gin.H{
