@@ -43,8 +43,8 @@ var sheet = Sheet{
 	RowIds:    []RowId{0, 1, 2, 3, 4},
 }
 
-var sheets = []Sheet{
-	sheet,
+var sheets = []*Sheet{
+	&sheet,
 }
 
 type Cell struct {
@@ -54,7 +54,7 @@ type Cell struct {
 type CellRecord struct {
 	ColumnId ColumnId `json:"columnId"`
 	RowId    RowId    `json:"rowId"`
-	Cell     Cell     `json:"cell"`
+	Cell     *Cell    `json:"cell"`
 }
 
 var cell = Cell{
@@ -65,7 +65,7 @@ var cells = []CellRecord{
 	{
 		ColumnId: 0,
 		RowId:    0,
-		Cell:     cell,
+		Cell:     &cell,
 	},
 }
 
@@ -107,6 +107,11 @@ func GetCell(c *gin.Context) {
 	fmt.Println("get cell by id", sheetId, cellId)
 
 	c.JSON(http.StatusOK, cell)
+}
+
+func UpdateCell(v string) {
+	fmt.Println("set cell with", v)
+	cell.V = v
 }
 
 func TODO(c *gin.Context) {
