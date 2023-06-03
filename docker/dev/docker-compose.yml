@@ -28,7 +28,7 @@ services:
     env_file:
       - .env
     # 基础镜像
-    image: cosmtrek/air:v1.40.2
+    image: cosmtrek/air
     # 容器名称
     container_name: ${PROJECT_NAME}-golang-${DEV_USER}-${APP_PORT}
     # 工作目录
@@ -48,7 +48,7 @@ services:
         air -c .air.toml
     # 端口绑定，将宿主机端口绑定到容器端口
     ports:
-      - "80:${APP_PORT}"
+      - "9898:${APP_PORT}"
     extra_hosts:
       # 将对自身服务的请求重定向到本地
       - "spreadsheet.com:127.0.0.1"
